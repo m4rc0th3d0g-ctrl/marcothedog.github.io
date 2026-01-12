@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marco The Dog | Team Video</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Video Page Specific Styles */
+        .video-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .video-container {
+            position: relative;
+            max-width: 1000px;
+            width: 100%;
+            margin: 2rem auto;
+        }
+
+        .video-frame {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 50px rgba(0, 212, 255, 0.3),
+                0 0 100px rgba(0, 212, 255, 0.1),
+                inset 0 0 100px rgba(0, 0, 0, 0.5);
+            border: 3px solid var(--primary-blue);
+            background: #000;
+        }
+
+        .video-frame::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--primary-blue), transparent 30%);
+            animation: videoGlow 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes videoGlow {
+            100% { transform: rotate(360deg); }
+        }
+
+        .video-frame video {
+            width: 100%;
+            display: block;
+            border-radius: 17px;
+        }
+
+        .video-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary-blue), #ff00ff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes titleShimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .video-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+        }
+
+        .video-controls-custom {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .video-btn {
+            padding: 1rem 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            border: 2px solid var(--primary-blue);
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary-blue);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .video-btn:hover {
+            background: var(--primary-blue);
+            color: #000;
+            box-shadow: 0 0 30px var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 30px;
+            z-index: 100;
+        }
+
+        /* Scanlines overlay */
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.1) 2px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+            border-radius: 17px;
+            z-index: 1;
+        }
+
+        /* Glowing corners */
+        .corner-glow {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            pointer-events: none;
+        }
+
+        .corner-glow.top-left {
+            top: -2px;
+            left: -2px;
+            border-top: 3px solid var(--accent-cyan);
+            border-left: 3px solid var(--accent-cyan);
+            border-radius: 20px 0 0 0;
+            animation: cornerPulse 2s ease-in-out infinite;
+        }
+
+        .corner-glow.top-right {
+            top: -2px;
+            right: -2px;
+            border-top: 3px solid var(--accent-cyan);
+            border-right: 3px solid var(--accent-cyan);
+            border-radius: 0 20px 0 0;
+            animation: cornerPulse 2s ease-in-out infinite 0.5s;
+        }
+
+        .corner-glow.bottom-left {
+            bottom: -2px;
+            left: -2px;
+            border-bottom: 3px solid var(--accent-cyan);
+            border-left: 3px solid var(--accent-cyan);
+            border-radius: 0 0 0 20px;
+            animation: cornerPulse 2s ease-in-out infinite 1s;
+        }
+
+        .corner-glow.bottom-right {
+            bottom: -2px;
+            right: -2px;
+            border-bottom: 3px solid var(--accent-cyan);
+            border-right: 3px solid var(--accent-cyan);
+            border-radius: 0 0 20px 0;
+            animation: cornerPulse 2s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes cornerPulse {
+            0%, 100% { 
+                opacity: 0.5;
+                box-shadow: 0 0 10px var(--accent-cyan);
+            }
+            50% { 
+                opacity: 1;
+                box-shadow: 0 0 30px var(--accent-cyan);
+            }
+        }
+
+        /* Floating particles around video */
+        .video-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            animation: particleFloat 10s infinite;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-200px) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* Video info section */
+        .video-info {
+            max-width: 800px;
+            margin: 3rem auto;
+            text-align: center;
+        }
+
+        .video-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .video-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .video-stat {
+            text-align: center;
+        }
+
+        .video-stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-blue);
+            display: block;
+        }
+
+        .video-stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Team credits */
+        .team-credits {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(0, 26, 51, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .credits-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .credits-list {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .credit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .credit-item span {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+    </div>
+
+    <a href="index.html" class="btn btn-secondary back-btn">← Back to Home</a>
+
+    <main class="video-page">
+        <h1 class="video-title">Marco The Dog</h1>
+        <p class="video-subtitle">// THE OFFICIAL TEAM VIDEO //</p>
+
+        <div class="video-container">
+            <div class="video-particles">
+                <div class="particle" style="left: 5%; animation-delay: 0s;"></div>
+                <div class="particle" style="left: 15%; animation-delay: 1s;"></div>
+                <div class="particle" style="left: 25%; animation-delay: 2s;"></div>
+                <div class="particle" style="left: 35%; animation-delay: 3s;"></div>
+                <div class="particle" style="left: 45%; animation-delay: 4s;"></div>
+                <div class="particle" style="left: 55%; animation-delay: 5s;"></div>
+                <div class="particle" style="left: 65%; animation-delay: 6s;"></div>
+                <div class="particle" style="left: 75%; animation-delay: 7s;"></div>
+                <div class="particle" style="left: 85%; animation-delay: 8s;"></div>
+                <div class="particle" style="left: 95%; animation-delay: 9s;"></div>
+            </div>
+
+            <div class="video-frame">
+                <video id="teamVideo" poster="logo.jpg" controls>
+                    <source src="marcothedog.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="scanlines"></div>
+                <div class="corner-glow top-left"></div>
+                <div class="corner-glow top-right"></div>
+                <div class="corner-glow bottom-left"></div>
+                <div class="corner-glow bottom-right"></div>
+            </div>
+
+            <div class="video-controls-custom">
+                <button class="video-btn" onclick="togglePlay()">
+                    <span id="playIcon">▶</span> Play / Pause
+                </button>
+                <button class="video-btn" onclick="toggleFullscreen()">
+                    ⛶ Fullscreen
+                </button>
+                <button class="video-btn" onclick="toggleCinemaMode()">
+                    🎬 Cinema Mode
+                </button>
+            </div>
+        </div>
+
+        <div class="video-info">
+            <p class="video-description">
+                Watch as Marco The Dog dominates CTF competitions around the world. 
+                From cryptographic puzzles to binary exploits, witness the team that never backs down from a challenge.
+                This is our story. This is our legacy.
+            </p>
+
+            <div class="video-stats">
+                <div class="video-stat">
+                    <span class="video-stat-number">∞</span>
+                    <span class="video-stat-label">Flags Captured</span>
+                </div>
+                <div class="video-stat">
+                    <span class="video-stat-number">24/7</span>
+                    <span class="video-stat-label">Grinding</span>
+                </div>
+                <div class="video-stat">
+                    <span class="video-stat-number">100%</span>
+                    <span class="video-stat-label">Dedication</span>
+                </div>
+            </div>
+
+            <div class="team-credits">
+                <h3 class="credits-title">Featured In This Video</h3>
+                <div class="credits-list">
+                    <div class="credit-item"><span>👑</span> Marco Hui</div>
+                    <div class="credit-item"><span>⌨️</span> CosmicCrusader</div>
+                    <div class="credit-item"><span>🌪️</span> Kayth</div>
+                    <div class="credit-item"><span>💻</span> Shek</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Marco The Dog CTF Team. All flags belong to us. 🐕</p>
+    </footer>
+
+    <script>
+        const video = document.getElementById('teamVideo');
+        const playIcon = document.getElementById('playIcon');
+
+        function togglePlay() {
+            if (video.paused) {
+                video.play();
+                playIcon.textContent = '⏸';
+            } else {
+                video.pause();
+                playIcon.textContent = '▶';
+            }
+        }
+
+        function toggleFullscreen() {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            }
+        }
+
+        let cinemaMode = false;
+        function toggleCinemaMode() {
+            cinemaMode = !cinemaMode;
+            if (cinemaMode) {
+                document.body.style.background = '#000';
+                document.querySelector('.background-animation').style.opacity = '0.1';
+                document.querySelector('.video-container').style.transform = 'scale(1.1)';
+            } else {
+                document.body.style.background = '';
+                document.querySelector('.background-animation').style.opacity = '1';
+                document.querySelector('.video-container').style.transform = 'scale(1)';
+            }
+        }
+
+        video.addEventListener('play', () => playIcon.textContent = '⏸');
+        video.addEventListener('pause', () => playIcon.textContent = '▶');
+
+        // Matrix rain effect for background
+        const canvas = document.createElement('canvas');
+        canvas.id = 'matrix-rain';
+        document.querySelector('.background-animation').appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const chars = 'MARCOTHEDOG01FLAG{CTF}';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(0, 212, 255, 0.3)';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 50);
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
