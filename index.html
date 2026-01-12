@@ -1,25 +1,203 @@
 <!DOCTYPE html>
-</p><html lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0    ">
-    <title>My Web Page</title>                          
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marco The Dog | CTF Team</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Web Page</h1>
-    </header>
-    <nav>           
+    <div class="background-animation">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+    </div>
 
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-icon">🐕</span>
+                <span class="logo-text">Marco The Dog</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#achievements" class="nav-link">Achievements</a></li>
+                <li><a href="#team" class="nav-link">Team</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-        <section id="home">         
-            <h2>Home</h2>
-            <p>This is the home section of my web page.</p>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="glitch" data-text="Marco The Dog">Marco The Dog</h1>
+                <p class="tagline">Capturing Flags. Breaking Barriers. Unleashing Chaos.</p>
+                <div class="cta-buttons">
+                    <a href="#about" class="btn btn-primary">Learn More</a>
+                    <a href="#contact" class="btn btn-secondary">Join Us</a>
+                </div>
+            </div>
+            <div class="hero-graphic">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <p><span class="prompt">$</span> <span class="typing">./exploit --target flag.txt</span></p>
+                        <p class="output">[+] Vulnerability found...</p>
+                        <p class="output">[+] Exploiting buffer overflow...</p>
+                        <p class="output success">[✓] FLAG{m4rc0_th3_d0g_w1ns}</p>
+                    </div>
+                </div>
+            </div>
         </section>
+
+        <section id="about" class="about">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <div class="card-icon">🔐</div>
+                    <h3>Cryptography</h3>
+                    <p>Breaking ciphers and unraveling encrypted mysteries is our specialty.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon">💻</div>
+                    <h3>Binary Exploitation</h3>
+                    <p>Stack smashing, heap manipulation, ROP chains - we love it all.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon">🌐</div>
+                    <h3>Web Security</h3>
+                    <p>SQL injections, XSS, SSRF - no web app is safe from our paws.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon">🔍</div>
+                    <h3>Reverse Engineering</h3>
+                    <p>Disassembling binaries and uncovering hidden secrets.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievements" class="achievements">
+            <h2 class="section-title">Achievements</h2>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="150">0</span>
+                    <span class="stat-label">CTFs Competed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="42">0</span>
+                    <span class="stat-label">Top 10 Finishes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="1337">0</span>
+                    <span class="stat-label">Flags Captured</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="15">0</span>
+                    <span class="stat-label">First Place Wins</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="team">
+            <h2 class="section-title">Our Pack</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">🐺</div>
+                    <h3>Alpha</h3>
+                    <p>Team Lead & Pwn Specialist</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">🦊</div>
+                    <h3>CryptoFox</h3>
+                    <p>Cryptography Expert</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">🐕‍🦺</div>
+                    <h3>WebHound</h3>
+                    <p>Web Security Guru</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">🐾</div>
+                    <h3>RevPaw</h3>
+                    <p>Reverse Engineering</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2 class="section-title">Join The Pack</h2>
+            <div class="contact-content">
+                <p>Think you have what it takes to run with Marco The Dog?</p>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Handle" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Tell us about your CTF experience..." rows="4"></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+                <div class="social-links">
+                    <a href="#" class="social-link">Discord</a>
+                    <a href="#" class="social-link">CTFtime</a>
+                    <a href="#" class="social-link">GitHub</a>
+                    <a href="#" class="social-link">Twitter</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Marco The Dog CTF Team. All flags belong to us. 🐕</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const target = parseInt(stat.dataset.target);
+                        let current = 0;
+                        const increment = target / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                stat.textContent = target;
+                                clearInterval(timer);
+                            } else {
+                                stat.textContent = Math.floor(current);
+                            }
+                        }, 30);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const statsSection = document.querySelector('.stats-container');
+        if (statsSection) observer.observe(statsSection);
+    </script>
+</body>
+</html>
